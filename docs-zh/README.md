@@ -9,8 +9,8 @@ ClaudeCode 自主软件开发系统的文档集。
 
 | 目标 | 文档 |
 |------|------|
-| 5分钟快速开始 | [快速入门](./QuickStart.md) |
-| 了解架构 | [架构概览](./ArchitectureOverview.md) |
+| 5分钟快速开始 | [快速入门](../docs-en/QuickStart.md) |
+| 了解架构 | [架构概览](../docs-en/ArchitectureOverview.md) |
 | 配置 Claude Code | [配置指南](../docs-en/SettingsGuide.md)（英文） |
 
 ---
@@ -77,6 +77,24 @@ cp -r templates/.claude /path/to/your-project/.claude
 # 启动
 claude
 ```
+
+---
+
+### 📁 [08_教程(Tutorials)](<../08_チュートリアル(Tutorials)/>)
+分步操作指南，边做边学。
+
+| 文件 | 内容 |
+|------|------|
+| [01_首次运行TripleLoop](<../08_チュートリアル(Tutorials)/01_初めてのTripleLoop実行(FirstTripleLoop).md>) | Triple Loop 15H 的首次启动步骤 |
+| [05_子代理并行执行](<../08_チュートリアル(Tutorials)/05_サブエージェント並列実行(SubagentParallel).md>) | 通过并行子代理实现高速开发 |
+
+### 📁 [09_案例集(UseCases)](<../09_事例集(UseCases)/>)
+实际项目的应用案例与成功模式。
+
+| 文件 | 内容 |
+|------|------|
+| [03_事故响应案例](<../09_事例集(UseCases)/03_インシデント対応活用事例(IncidentResponseCase).md>) | 45分钟解决深夜事故 |
+| [04_Python_FastAPI案例](<../09_事例集(UseCases)/04_Python_FastAPI適用事例(PythonFastAPICase).md>) | 测试覆盖率 58%→88% |
 
 ---
 
