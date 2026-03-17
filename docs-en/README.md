@@ -118,6 +118,34 @@ claude
 
 ---
 
+## 📁 [08_Tutorials](<../08_チュートリアル(Tutorials)/>)
+
+Step-by-step hands-on guides.
+
+| File | Content |
+|------|---------|
+| [01_FirstTripleLoop](<../08_チュートリアル(Tutorials)/01_初めてのTripleLoop実行(FirstTripleLoop).md>) | How to run Triple Loop 15H for the first time |
+| [02_VSCodeTutorial](<../08_チュートリアル(Tutorials)/02_VSCode拡張機能活用(VSCodeTutorial).md>) | Using inline diff and sidebar in VS Code |
+| [03_HooksPractice](<../08_チュートリアル(Tutorials)/03_Hooks実践設定(HooksPractice).md>) | Configuring auto-test, blocking, and notification hooks |
+| [04_MCPIntro](<../08_チュートリアル(Tutorials)/04_MCP連携入門(MCPIntro).md>) | Getting started with GitHub MCP |
+| [05_SubagentParallel](<../08_チュートリアル(Tutorials)/05_サブエージェント並列実行(SubagentParallel).md>) | High-speed development with parallel sub-agents |
+
+---
+
+## 📁 [09_UseCases](<../09_事例集(UseCases)/>)
+
+Real-world adoption cases, success patterns, and lessons learned.
+
+| File | Content |
+|------|---------|
+| [01_NodeJSRestAPI](<../09_事例集(UseCases)/01_NodeJS_REST_API適用事例(NodeJSRestAPICase).md>) | Applying Triple Loop to Node.js/TypeScript API |
+| [02_ReactFrontend](<../09_事例集(UseCases)/02_React_フロントエンド適用事例(ReactFrontendCase).md>) | React 18 migration and large-scale type annotation |
+| [03_IncidentResponse](<../09_事例集(UseCases)/03_インシデント対応活用事例(IncidentResponseCase).md>) | Resolved a midnight incident in 45 minutes |
+| [04_PythonFastAPI](<../09_事例集(UseCases)/04_Python_FastAPI適用事例(PythonFastAPICase).md>) | Quality improvement with Python/FastAPI (coverage 58%→88%) |
+| [05_SecurityResponse](<../09_事例集(UseCases)/05_セキュリティ脆弱性対応事例(SecurityResponseCase).md>) | Fixed a Critical CVE in 2.5 hours with recurrence prevention |
+
+---
+
 ## License
 
 [MIT License](../LICENSE)
