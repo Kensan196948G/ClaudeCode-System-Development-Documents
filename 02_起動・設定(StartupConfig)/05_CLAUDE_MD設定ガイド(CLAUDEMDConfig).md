@@ -8,19 +8,54 @@
 このファイルに Triple Loop システムのプロンプトと動作指示を記述することで、  
 Claude Code が自律的に開発ループを実行します。
 
+> **Claude Code 2.0 以降**: CLAUDE.md と `settings.json` の役割が明確に分かれています。
+> - `CLAUDE.md` → **AI への指示・役割・ルール**（自然言語）
+> - `settings.json` → **システム設定・ツール制御**（JSON）
+
 ---
 
-## ファイル配置場所
+## ファイル配置場所と優先順位
+
+```
+優先度 高 ←──────────────────────────────────────── 低
+
+プロジェクト固有           ユーザーグローバル
+.claude/CLAUDE.md          ~/.claude/CLAUDE.md
+   ↑ プロジェクト内の     ↑ 全プロジェクト共通の
+     CLAUDE.md が優先        デフォルト設定
+```
 
 ```
 ~/.claude/
-└── CLAUDE.md    ← ここに配置（全プロジェクト共通設定）
+├── CLAUDE.md          ← 全プロジェクト共通（グローバル設定）
+└── settings.json      ← グローバル動作設定
 
 your-project/
-└── CLAUDE.md    ← ここに配置（プロジェクト固有設定）
+├── .claude/
+│   ├── CLAUDE.md      ← プロジェクト固有指示（グローバルより優先）
+│   ├── settings.json  ← プロジェクト固有設定
+│   ├── commands/      ← カスタム /slash コマンド
+│   │   └── review.md
+│   ├── hooks/         ← フックスクリプト（オプション）
+│   └── mcp-configs/   ← MCP サーバー設定
+└── ...
 ```
 
-> **優先順位**: プロジェクト内 `CLAUDE.md` > `~/.claude/CLAUDE.md`
+---
+
+## CLAUDE.md と settings.json の役割分担
+
+| 内容 | どちらに書くか |
+|------|--------------|
+| AI の役割定義・人格設定 | **CLAUDE.md** |
+| Triple Loop の動作指示 | **CLAUDE.md** |
+| コーディング規約・コミット規約 | **CLAUDE.md** |
+| 品質基準・完了条件 | **CLAUDE.md** |
+| ツールの許可/禁止 | **settings.json** |
+| 自動承認ルール | **settings.json** |
+| モデル選択 | **settings.json** |
+| Hooks（ライフサイクルイベント） | **settings.json** |
+| MCP 設定 | **settings.json** + mcp-configs/ |
 
 ---
 
@@ -132,3 +167,6 @@ claude "現在の設定ファイルの内容を要約してください"
 - [フル自律開発起動](./01_フル自律開発起動(FullAutoStart).md)
 - [ループ監視プロンプト](./02_ループ監視プロンプト(LoopMonitorPrompt).md)
 - [ループ検証プロンプト](./03_ループ検証プロンプト(LoopVerifyPrompt).md)
+- [settings.json 設定ガイド](./07_settings_json設定ガイド(SettingsJson).md) — ツール制御・自動承認の詳細
+- [Hooks設定ガイド](./06_Hooks設定ガイド(HooksConfig).md) — ライフサイクルイベントの設定
+- [MCP設定ガイド](./08_MCP設定ガイド(MCPConfig).md) — 外部ツール連携の設定

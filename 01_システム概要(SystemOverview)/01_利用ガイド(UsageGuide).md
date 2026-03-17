@@ -4,14 +4,22 @@
 
 ## ファイルの全体像
 
-このシステムは **2つのファイル** で構成されています。
+このシステムは **`.claude/` ディレクトリ** で一元管理されます（Claude Code 2.0 以降）。
 
 ```
-~/.claude/
-└── CLAUDE.md          ← 【頭脳】Claude が自動で読む設定ファイル
+~/.claude/                       ← グローバル設定（全プロジェクト共通）
+├── CLAUDE.md                    ← 【頭脳】Claude が自動で読む設定ファイル
+├── settings.json                ← 【動作設定】ツール許可・モデル・Hooks
+└── mcp-configs/                 ← MCP サーバー設定
 
-ClaudeCode フォルダ/
-└── 00_フル自律開発起動(FullAutoStart).md  ← 【参考書】人間用のリファレンス
+your-project/
+├── .claude/                     ← プロジェクト固有設定（優先）
+│   ├── CLAUDE.md                ← プロジェクト固有のシステムプロンプト補足
+│   ├── settings.json            ← プロジェクト固有の動作設定
+│   ├── commands/                ← カスタム /slash コマンド定義
+│   ├── hooks/                   ← フックスクリプト
+│   └── mcp-configs/             ← プロジェクト固有のMCP設定
+└── 01_フル自律開発起動(FullAutoStart).md  ← 【参考書】人間用のリファレンス
 ```
 
 ---
@@ -367,3 +375,55 @@ Claude Code セッション内で:
   日: 休止（リミット回復）
   週消費: 90H ⚠️ 金・土はリミット残量確認後に開始
 ```
+
+---
+
+## Claude Code 2.0 の新機能活用
+
+### チェックポイントによる安全な実験
+
+```bash
+# ループ実行中に問題が発生した場合
+/rewind
+# または Esc × 2 キー押下でチェックポイント一覧が表示される
+```
+
+詳細: [チェックポイント機能](./05_チェックポイント機能(Checkpoints).md)
+
+### settings.json によるループ自動化
+
+```json
+// .claude/settings.json で Triple Loop の動作をカスタマイズ
+{
+  "autoApprove": {
+    "enabled": true,
+    "rules": [
+      { "tool": "bash", "pattern": "npm (test|build).*", "auto": true },
+      { "tool": "bash", "pattern": "git (add|commit).*", "auto": true }
+    ]
+  }
+}
+```
+
+詳細: [settings.json 設定ガイド](../02_起動・設定(StartupConfig)/07_settings_json設定ガイド(SettingsJson).md)
+
+### 外部ツール連携（MCP）
+
+```bash
+# GitHub Issues を Claude Code から直接参照
+claude "GitHub の未解決 Issues を取得して、今日のビルドループのタスクリストを作成してください"
+```
+
+詳細: [MCP設定ガイド](../02_起動・設定(StartupConfig)/08_MCP設定ガイド(MCPConfig).md)
+
+---
+
+## 関連ドキュメント
+
+- [アーキテクチャ概要](./02_アーキテクチャ概要(ArchitectureOverview).md)
+- [クイックスタート](./04_クイックスタート(QuickStart).md)
+- [チェックポイント機能](./05_チェックポイント機能(Checkpoints).md)
+- [VS Code拡張機能](./06_VSCode拡張機能(VSCodeExtension).md)
+- [Hooks設定ガイド](../02_起動・設定(StartupConfig)/06_Hooks設定ガイド(HooksConfig).md)
+- [settings.json 設定ガイド](../02_起動・設定(StartupConfig)/07_settings_json設定ガイド(SettingsJson).md)
+- [MCP設定ガイド](../02_起動・設定(StartupConfig)/08_MCP設定ガイド(MCPConfig).md)
