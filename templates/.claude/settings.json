@@ -1,0 +1,106 @@
+{
+  "_comment": "Claude Code プロジェクト設定テンプレート — 不要な項目は削除してください",
+
+  "model": "claude-sonnet-4-5",
+
+  "permissions": {
+    "allow": [
+      "Read",
+      "Write",
+      "Edit",
+      "bash",
+      "Glob",
+      "Grep",
+      "WebFetch",
+      "TodoRead",
+      "TodoWrite"
+    ],
+    "deny": [
+      "bash(sudo rm -rf*)",
+      "bash(git push --force*)",
+      "bash(DROP TABLE*)",
+      "bash(rm -rf /*)"
+    ]
+  },
+
+  "autoApprove": {
+    "enabled": true,
+    "rules": [
+      { "tool": "Read",  "auto": true },
+      { "tool": "Grep",  "auto": true },
+      { "tool": "Glob",  "auto": true },
+      { "tool": "bash", "pattern": "npm (test|lint|build|run).*", "auto": true },
+      { "tool": "bash", "pattern": "pytest.*",                    "auto": true },
+      { "tool": "bash", "pattern": "git (add|commit|status|log|diff|branch).*", "auto": true },
+      { "tool": "bash", "pattern": "cat .*",                      "auto": true },
+      { "tool": "bash", "pattern": "ls .*",                       "auto": true },
+      { "tool": "Write", "pattern": "src/.*",                     "auto": true },
+      { "tool": "Write", "pattern": "tests/.*",                   "auto": true },
+      { "tool": "bash", "pattern": ".*prod.*deploy.*",            "auto": false }
+    ]
+  },
+
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": { "tool_name": "Write" },
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date '+%H:%M:%S')] 変更: $CLAUDE_FILE_PATH\" >> /tmp/claude-activity.log",
+            "on_failure": "warn"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": { "tool_name": "bash", "tool_input": ".*sudo rm -rf.*" },
+        "hooks": [
+          {
+            "type": "block",
+            "reason": "危険なコマンドは禁止されています"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"Claude: $CLAUDE_NOTIFICATION_MESSAGE\" >> /tmp/claude-notifications.log"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"=== セッション完了: $(date) ===\" >> /tmp/claude-activity.log && git log --oneline -5 >> /tmp/claude-activity.log 2>&1"
+          }
+        ]
+      }
+    ]
+  },
+
+  "context": {
+    "autoLoadFiles": ["README.md", "CLAUDE.md", "package.json", "pyproject.toml"],
+    "maxContextFiles": 50,
+    "includeGitHistory": true
+  },
+
+  "session": {
+    "checkpointsEnabled": true,
+    "historyRetentionDays": 30,
+    "maxTurnsPerSession": 300
+  },
+
+  "output": {
+    "verbosity": "normal",
+    "colorEnabled": true,
+    "progressIndicator": true
+  }
+}

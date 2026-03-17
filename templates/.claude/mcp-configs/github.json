@@ -1,0 +1,16 @@
+{
+  "_comment": "GitHub MCP サーバー設定テンプレート。GITHUB_TOKEN環境変数を設定してください。",
+  "name": "github",
+  "type": "stdio",
+  "command": "mcp-server-github",
+  "env": {
+    "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+  },
+  "capabilities": [
+    "issues",
+    "pull_requests",
+    "repositories",
+    "search",
+    "code_search"
+  ]
+}

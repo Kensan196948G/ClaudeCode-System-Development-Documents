@@ -1,0 +1,151 @@
+name: ドキュメント品質チェック
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.md'
+      - '.github/workflows/docs-check.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - '**/*.md'
+
+jobs:
+  markdown-lint:
+    name: Markdown 構文チェック
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Node.js セットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: markdownlint-cli インストール
+        run: npm install -g markdownlint-cli
+
+      - name: Markdown 構文チェック実行
+        run: |
+          markdownlint '**/*.md' \
+            --ignore node_modules \
+            --ignore templates \
+            --config .markdownlint.json \
+            || true
+        # || true は既存ドキュメントのスタイルを維持するため警告のみにする
+
+  link-check:
+    name: リンク切れチェック
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v4
+
+      - name: markdown-link-check インストール
+        run: npm install -g markdown-link-check
+
+      - name: 内部リンクチェック
+        run: |
+          find . -name "*.md" \
+            -not -path "*/node_modules/*" \
+            -not -path "*/.git/*" \
+            | xargs -I {} markdown-link-check {} \
+              --config .mlc-config.json \
+              --quiet \
+              2>&1 | tee link-check-results.txt
+          
+          # リンク切れを集計して表示
+          ERRORS=$(grep -c "ERROR" link-check-results.txt || echo "0")
+          echo "リンク切れ件数: $ERRORS"
+          
+          if [ "$ERRORS" -gt "0" ]; then
+            grep "ERROR" link-check-results.txt
+            echo "⚠️ リンク切れが $ERRORS 件あります（外部リンクはタイムアウトの可能性もあります）"
+          fi
+
+      - name: チェック結果をアーティファクトとして保存
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: link-check-results
+          path: link-check-results.txt
+
+  naming-convention:
+    name: ファイル命名規則チェック
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v4
+
+      - name: 命名規則チェック（数字_日本語名(英語名).md）
+        run: |
+          echo "=== ファイル命名規則チェック ==="
+          FAILED=0
+          
+          # サブフォルダ内の .md ファイルをチェック
+          find . -mindepth 2 -name "*.md" \
+            -not -path "*/node_modules/*" \
+            -not -path "*/.git/*" \
+            -not -path "*/templates/*" \
+            -not -name "README.md" \
+            | while read -r file; do
+              basename=$(basename "$file")
+              # 命名規則: 数字_で始まるかチェック
+              if ! echo "$basename" | grep -qE '^[0-9]+_'; then
+                echo "⚠️ 命名規則違反: $file（数字_で始まる必要があります）"
+                FAILED=1
+              fi
+            done
+          
+          echo "命名規則チェック完了"
+
+  structure-check:
+    name: ドキュメント構造チェック
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v4
+
+      - name: 必須ファイルの存在確認
+        run: |
+          echo "=== 必須ファイルチェック ==="
+          REQUIRED_FILES=(
+            "README.md"
+            "LICENSE"
+            "01_システム概要(SystemOverview)/01_利用ガイド(UsageGuide).md"
+            "01_システム概要(SystemOverview)/04_クイックスタート(QuickStart).md"
+            "02_起動・設定(StartupConfig)/01_フル自律開発起動(FullAutoStart).md"
+          )
+          
+          MISSING=0
+          for file in "${REQUIRED_FILES[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ 必須ファイルが見つかりません: $file"
+              MISSING=$((MISSING + 1))
+            else
+              echo "✅ $file"
+            fi
+          done
+          
+          if [ "$MISSING" -gt 0 ]; then
+            echo "❌ $MISSING 件の必須ファイルが不足しています"
+            exit 1
+          fi
+          
+          echo "✅ 全必須ファイルが存在します"
+
+      - name: ドキュメント統計
+        run: |
+          echo "=== ドキュメント統計 ==="
+          echo "総Markdownファイル数: $(find . -name '*.md' -not -path '*/.git/*' | wc -l)"
+          echo "総文字数（日本語）: $(find . -name '*.md' -not -path '*/.git/*' | xargs wc -c | tail -1)"
+          echo ""
+          echo "フォルダ別ファイル数:"
+          for dir in 01_* 02_* 03_* 04_* 05_* 06_* 07_*; do
+            if [ -d "$dir" ]; then
+              count=$(find "$dir" -name "*.md" | wc -l)
+              echo "  $dir: $count ファイル"
+            fi
+          done

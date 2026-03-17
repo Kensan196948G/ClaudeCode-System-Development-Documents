@@ -108,7 +108,54 @@ CI/CD・インフラ・運用自動化のプロンプト集です。
 
 ---
 
-## クイックリファレンス
+### 📁 [08_チュートリアル(Tutorials)](./08_チュートリアル(Tutorials)/)
+ステップバイステップの操作ガイドです。実際に手を動かしながら学べます。
+
+| ファイル | 内容 |
+|---------|------|
+| [01_初めてのTripleLoop実行](./08_チュートリアル(Tutorials)/01_初めてのTripleLoop実行(FirstTripleLoop).md) | Triple Loop 15H の初回起動手順 |
+| [02_VSCode拡張機能活用](./08_チュートリアル(Tutorials)/02_VSCode拡張機能活用(VSCodeTutorial).md) | インラインdiff・サイドバーの使い方 |
+| [03_Hooks実践設定](./08_チュートリアル(Tutorials)/03_Hooks実践設定(HooksPractice).md) | 自動テスト・ブロック・通知のHooks設定 |
+| [04_MCP連携入門](./08_チュートリアル(Tutorials)/04_MCP連携入門(MCPIntro).md) | GitHub MCPの設定と使い方 |
+| [05_サブエージェント並列実行](./08_チュートリアル(Tutorials)/05_サブエージェント並列実行(SubagentParallel).md) | 並列サブエージェントによる高速開発 |
+
+---
+
+### 📁 [09_事例集(UseCases)](./09_事例集(UseCases)/)
+実際のプロジェクトでの適用事例・成功パターン・失敗から学んだことをまとめています。
+
+| ファイル | 内容 |
+|---------|------|
+| [01_NodeJS_REST_API適用事例](./09_事例集(UseCases)/01_NodeJS_REST_API適用事例(NodeJSRestAPICase).md) | Node.js/TS APIへのTriple Loop適用 |
+| [02_React_フロントエンド適用事例](./09_事例集(UseCases)/02_React_フロントエンド適用事例(ReactFrontendCase).md) | React 18移行・大規模型付け事例 |
+| [03_インシデント対応活用事例](./09_事例集(UseCases)/03_インシデント対応活用事例(IncidentResponseCase).md) | 深夜インシデントを45分で解決 |
+
+---
+
+### 📁 [templates/](./templates/)
+すぐに使える `.claude/` ディレクトリのテンプレートファイル集。新規プロジェクトにコピーして利用できます。
+
+| ファイル/フォルダ | 内容 |
+|---------|------|
+| [templates/.claude/CLAUDE.md](./templates/.claude/CLAUDE.md) | Triple Loop プロジェクトテンプレート |
+| [templates/.claude/settings.json](./templates/.claude/settings.json) | ツール制御・Hooks・自動承認の設定例 |
+| [templates/.claude/commands/review.md](./templates/.claude/commands/review.md) | `/review` カスタムコマンド定義 |
+| [templates/.claude/commands/deploy.md](./templates/.claude/commands/deploy.md) | `/deploy` カスタムコマンド定義 |
+| [templates/.claude/hooks/post-write.sh](./templates/.claude/hooks/post-write.sh) | ファイル変更後フック（Lint自動実行） |
+| [templates/.claude/hooks/pre-commit.sh](./templates/.claude/hooks/pre-commit.sh) | コミット前品質チェック |
+
+---
+
+### 🌐 [docs-en/](./docs-en/)
+English documentation for international users.
+
+| File | Content |
+|------|---------|
+| [README](./docs-en/README.md) | System overview in English |
+| [QuickStart](./docs-en/QuickStart.md) | 5-minute setup guide |
+| [ArchitectureOverview](./docs-en/ArchitectureOverview.md) | Triple Loop architecture |
+
+---
 
 | やりたいこと | 参照ドキュメント |
 |------------|--------------|

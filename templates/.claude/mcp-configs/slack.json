@@ -1,0 +1,16 @@
+{
+  "_comment": "Slack MCP サーバー設定テンプレート。SLACK_BOT_TOKEN と SLACK_TEAM_ID を設定してください。",
+  "name": "slack",
+  "type": "stdio",
+  "command": "mcp-server-slack",
+  "env": {
+    "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+    "SLACK_TEAM_ID": "${SLACK_TEAM_ID}"
+  },
+  "capabilities": [
+    "channels_read",
+    "messages_read",
+    "messages_write",
+    "search"
+  ]
+}
