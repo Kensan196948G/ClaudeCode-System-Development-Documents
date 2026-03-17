@@ -1,0 +1,20 @@
+{
+  "name": "@claudecode/init-template",
+  "version": "1.0.0",
+  "description": "ClaudeCode .claude/ directory setup template for autonomous development projects",
+  "bin": {
+    "claudecode-init": "./bin/claudecode-init.js"
+  },
+  "scripts": {
+    "init": "node bin/claudecode-init.js"
+  },
+  "keywords": ["claude-code", "anthropic", "ai", "autonomous-development", "triple-loop"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kensan196948G/ClaudeCode-System-Development-Documents.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

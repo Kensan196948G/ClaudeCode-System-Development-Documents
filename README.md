@@ -105,6 +105,7 @@ CI/CD・インフラ・運用自動化のプロンプト集です。
 | [03_設計ドキュメント作成](./07_ドキュメント・ナレッジ(DocumentationKnowledge)/03_設計ドキュメント作成(DesignDocCreation).md) | 設計書・API仕様書の作成 |
 | [04_ナレッジベース管理](./07_ドキュメント・ナレッジ(DocumentationKnowledge)/04_ナレッジベース管理(KnowledgeBaseManagement).md) | ADR・ポストモーテム・FAQ管理 |
 | [05_チームオンボーディング](./07_ドキュメント・ナレッジ(DocumentationKnowledge)/05_チームオンボーディング(TeamOnboarding).md) | 新メンバー向けガイド |
+| [06_メトリクスレポートテンプレート](./07_ドキュメント・ナレッジ(DocumentationKnowledge)/06_メトリクスレポートテンプレート(MetricsReport).md) | 週次/月次活用状況レポートテンプレート |
 
 ---
 
@@ -129,6 +130,8 @@ CI/CD・インフラ・運用自動化のプロンプト集です。
 | [01_NodeJS_REST_API適用事例](./09_事例集(UseCases)/01_NodeJS_REST_API適用事例(NodeJSRestAPICase).md) | Node.js/TS APIへのTriple Loop適用 |
 | [02_React_フロントエンド適用事例](./09_事例集(UseCases)/02_React_フロントエンド適用事例(ReactFrontendCase).md) | React 18移行・大規模型付け事例 |
 | [03_インシデント対応活用事例](./09_事例集(UseCases)/03_インシデント対応活用事例(IncidentResponseCase).md) | 深夜インシデントを45分で解決 |
+| [04_Python_FastAPI適用事例](./09_事例集(UseCases)/04_Python_FastAPI適用事例(PythonFastAPICase).md) | Python/FastAPIでの品質改善（カバレッジ58%→88%） |
+| [05_セキュリティ脆弱性対応事例](./09_事例集(UseCases)/05_セキュリティ脆弱性対応事例(SecurityResponseCase).md) | Critical CVEを2.5時間で修正・再発防止 |
 
 ---
 
@@ -146,8 +149,15 @@ CI/CD・インフラ・運用自動化のプロンプト集です。
 
 ---
 
-### 🌐 [docs-en/](./docs-en/)
-English documentation for international users.
+### 🌐 多言語ドキュメント（Multilingual Docs）
+
+| 言語 | リンク | 概要 |
+|------|--------|------|
+| 🇺🇸 English | [docs-en/README.md](./docs-en/README.md) | System overview & QuickStart |
+| 🇨🇳 简体中文 | [docs-zh/README.md](./docs-zh/README.md) | 系统概述与快速入门 |
+| 🇰🇷 한국어 | [docs-ko/README.md](./docs-ko/README.md) | 시스템 개요 및 빠른 시작 |
+
+**docs-en/ 詳細**
 
 | File | Content |
 |------|---------|
